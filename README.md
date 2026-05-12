@@ -19,7 +19,7 @@ Each project combines **Active Directory** (self-hosted on AWS EC2), **Packet Tr
 
 ## Project Index
 
-### T1: Core Infrastructure (Projects 1-5)
+### T1: Core Infrastructure
 
 | # | Project | What I Proved | Folder |
 |---|---------|---------------|--------|
@@ -29,7 +29,7 @@ Each project combines **Active Directory** (self-hosted on AWS EC2), **Packet Tr
 | 4 | Users, Groups & Nesting | Automated users, groups, nested membership | [/T1-core-infrastructure/04-users-groups/](04-users-groups/) |
 | 5 | Protocol Basics | ICMP, TCP handshake, ARP, DHCP DORA | [/T1-core-infrastructure/05-protocol-basics/](05-protocol-basics/) |
 
-### T2: Security & Policy (Projects 6-10)
+### T2: Security & Policy
 
 | # | Project | What I Proved | Folder |
 |---|---------|---------------|--------|
@@ -39,7 +39,7 @@ Each project combines **Active Directory** (self-hosted on AWS EC2), **Packet Tr
 | 9 | Password & Lockout Policy | 8-char, complexity, 3-attempt lockout | [/09-password-policy/](09-password-policy/) |
 | 10 | AD Recycle Bin | Deleted objects restored in <1 minute | [/T2:security-policy/10-recycle-bin/](10-recycle-bin/) |
 
-### T3 Advanced Enterprise (Projects 11-15)
+### T3 Advanced Enterprise
 
 | # | Project | What I Proved | Folder |
 |---|---------|---------------|--------|
