@@ -23,31 +23,31 @@ Each project combines **Active Directory** (self-hosted on AWS EC2), **Packet Tr
 
 | # | Project | What I Proved | Folder |
 |---|---------|---------------|--------|
-| 1 | DNS SRV Records | DC advertises via `_ldap._tcp` SRV record | [/T1-core-infrastructure/01-dns-srv-records/](01-dns-srv-records/) |
-| 2 | DC Promotion | Windows Server becomes forest root | [/T1-core-infrastructure/02-dc-promotion/](02-dc-promotion/) |
-| 3 | OU Hierarchy | Admins, IT, HR, Users structure for RBAC | [/T1-core-infrastructure/03-ous/](03-ous/) |
-| 4 | Users, Groups & Nesting | Automated users, groups, nested membership | [/T1-core-infrastructure/04-users-groups/](04-users-groups/) |
-| 5 | Protocol Basics | ICMP, TCP handshake, ARP, DHCP DORA | [/T1-core-infrastructure/05-protocol-basics/](05-protocol-basics/) |
+| N01 | DNS SRV Records | DC advertises via `_ldap._tcp` SRV record | [/T1-core-infrastructure/N01-dns-srv-records/](N01-dns-srv-records/) |
+| N02 | DC Promotion | Windows Server becomes forest root | [/T1-core-infrastructure/N02-dc-promotion/](N02-dc-promotion/) |
+| N03 | OU Hierarchy | Admins, IT, HR, Users structure for RBAC | [/T1-core-infrastructure/N03-ous/](N03-ous/) |
+| N04 | Users, Groups & Nesting | Automated users, groups, nested membership | [/T1-core-infrastructure/N04-users-groups/](N04-users-groups/) |
+| N05 | Protocol Basics | ICMP, TCP handshake, ARP, DHCP DORA | [/T1-core-infrastructure/N05-protocol-basics/](N05-protocol-basics/) |
 
 ### T2: Security & Policy
 
 | # | Project | What I Proved | Folder |
 |---|---------|---------------|--------|
-| 6 | EC2 Client Domain Join | Kerberos AS-REQ/AS-REP authentication | [/T2:security-policy/06-domain-join/](06-domain-join/) |
-| 7 | OU Delegation | HR resets HR passwords (least privilege) | [/T2:security-policy/07-delegation/](07-delegation/) |
-| 8 | GPO Drive Mapping | S: drive mapped via Group Policy | [/T2:security-policy/08-gpo-drive/](08-gpo-drive/) |
-| 9 | Password & Lockout Policy | 8-char, complexity, 3-attempt lockout | [/09-password-policy/](09-password-policy/) |
-| 10 | AD Recycle Bin | Deleted objects restored in <1 minute | [/T2:security-policy/10-recycle-bin/](10-recycle-bin/) |
+| N06 | EC2 Client Domain Join | Kerberos AS-REQ/AS-REP authentication | [/T2-security-policy/N06-domain-join/](06-domain-join/) |
+| N07 | OU Delegation | HR resets HR passwords (least privilege) | [/T2-security-policy/N07-delegation/](N07-delegation/) |
+| N08 | GPO Drive Mapping | S: drive mapped via Group Policy | [/T2-security-policy/N08-gpo-drive/](N08-gpo-drive/) |
+| N09 | Password & Lockout Policy | 8-char, complexity, 3-attempt lockout | [/T2-N09-password-policy/](N09-password-policy/) |
+| N10 | AD Recycle Bin | Deleted objects restored in <1 minute | [/T2-security-policy/N10-recycle-bin/](N10-recycle-bin/) |
 
-### T3 Advanced Enterprise
+### T3: Advanced Enterprise
 
 | # | Project | What I Proved | Folder |
 |---|---------|---------------|--------|
-| 11 | PKI & LDAPS | Enterprise CA, LDAPS (636), TLS decryption | [/T3:advanced-enterprise/11-pki-ldaps/](11-pki-ldaps/) |
-| 12 | Fine-Grained Password Policies (PSO) | Admin (14-char) vs Standard (8-char) rules | [/T3:advanced-enterprise/12-fine-grained-password-policies/](12-fine-grained-password-policies/) |
-| 13 | Multi-AZ Replication | Cross-AZ AD replication via RPC/drsuapi | [/T3:advanced-enterprise/13-multi-az-replication/](13-multi-az-replication/) |
-| 14 | AD FS Federation (SAML) | SAML 2.0 token issuance for SSO | [/T3:advanced-enterprise/14-adfs-saml/](14-adfs-saml/) |
-| 15 | Authoritative Restore (ntdsutil) | OU recovery with ntdsutil in DSRM | [/T3:advanced-enterprise/15-authoritative-restore/](15-authoritative-restore/) |
+| N11 | PKI & LDAPS | Enterprise CA, LDAPS (636), TLS decryption | [/T3:advanced-enterprise/N11-pki-ldaps/](N11-pki-ldaps/) |
+| N12 | Fine-Grained Password Policies (PSO) | Admin (14-char) vs Standard (8-char) rules | [/T3:advanced-enterprise/N12-fine-grained-password-policies/](N12-fine-grained-password-policies/) |
+| N13 | Multi-AZ Replication | Cross-AZ AD replication via RPC/drsuapi | [/T3:advanced-enterprise/N13-multi-az-replication/](N13-multi-az-replication/) |
+| N14 | AD FS Federation (SAML) | SAML 2.0 token issuance for SSO | [/T3:advanced-enterprise/N14-adfs-saml/](N14-adfs-saml/) |
+| N15 | Authoritative Restore (ntdsutil) | OU recovery with ntdsutil in DSRM | [/T3:advanced-enterprise/N15-authoritative-restore/](N15-authoritative-restore/) |
 
 ---
 
