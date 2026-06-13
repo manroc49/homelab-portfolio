@@ -22,7 +22,7 @@ Each project combines **Active Directory** (self-hosted on AWS EC2), **Packet Tr
 
 | # | Project | What I Proved | Folder |
 |---|---------|---------------|--------|
-| 1.1 | DNS SRV Record Registration | DC advertises via `_ldap._tcp.homelab.local` SRV record | [/T1-core-infrastructure/N01-dns-srv-records/] (/T1-core-fundamentals) |
+| 1.1 | DNS SRV Record Registration | DC advertises via `_ldap._tcp.homelab.local` SRV record | [/T1-core-infrastructure/N01-dns-srv-records/](/T1-core-fundamentals/N01-dns-srv-records) |
 | 1.2 | Domain Controller Promotion | Windows Server becomes `homelab.local` forest root via LDAP bind | /T1-core-infrastructure/N02-dc-promotion/ |
 | 1.3 | Organizational Unit Hierarchy | 4-department OU tree (Admins, IT, HR, Users) for RBAC | /T1-core-infrastructure/N03-ou-hierarchy/ |
 | 1.4 | Users, Groups & Nested Membership | Automated 6 users, 4 groups; nested membership via LDAP modify | /T1-core-infrastructure/N04-users-groups/ |
