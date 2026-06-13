@@ -88,5 +88,5 @@ Each project combines **Active Directory** (self-hosted on AWS EC2), **Packet Tr
 
 ## Contact
 
-- **GitHub:** [manroc49] (this repo)
-- **LinkedIn:** [linkedin.com/in/yourname]
+- **GitHub:** [manroc49] (https://github.com/manroc49/homelab-portfolio/blob/main/README.md)
+- **LinkedIn:** [https://www.linkedin.com/in/mgr49]
