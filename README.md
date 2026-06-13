@@ -1,6 +1,5 @@
 # AWS Free Tier Homelab Portfolio
 
-
 Infrastructure engineering demonstration of enterprise Active Directory, network design, and protocol analysis skills on **$0 infrastructure** using AWS Free Tier.
 
 ## What This Repo Contains
@@ -9,9 +8,9 @@ Infrastructure engineering demonstration of enterprise Active Directory, network
 
 | Level | Focus | Projects |
 |-------|-------|----------|
-| **T1: Core Infrastructure** | AD deployment, DNS, OUs, users, groups, basic protocols | 1-5 |
-| **T2: Security & Policy** | Domain join, delegation, GPOs, password policy, Recycle Bin | 6-10 |
-| **T3: Advanced Enterprise** | PKI/LDAPS, PSOs, multi-AZ replication, AD FS/SAML, disaster recovery | 11-15 |
+| **T1: Core Infrastructure** | AD deployment, DNS, OUs, users, groups, basic protocols | 1.1 - 1.5 |
+| **T2: Security & Policy** | Domain join, delegation, GPOs, password policy, Recycle Bin | 2.6 - 2.10 |
+| **T3: Advanced Enterprise** | PKI/LDAPS, PSOs, multi-AZ replication, AD FS/SAML, disaster recovery | 3.11 - 3.15 |
 
 Each project combines **Active Directory** (self-hosted on AWS EC2), **Packet Tracer** (network design), and **Wireshark** (packet-level proof).
 
@@ -23,31 +22,31 @@ Each project combines **Active Directory** (self-hosted on AWS EC2), **Packet Tr
 
 | # | Project | What I Proved | Folder |
 |---|---------|---------------|--------|
-| N01 | DNS SRV Records | DC advertises via `_ldap._tcp` SRV record | [/T1-core-infrastructure/N01-dns-srv-records/](N01-dns-srv-records/) |
-| N02 | DC Promotion | Windows Server becomes forest root | [/T1-core-infrastructure/N02-dc-promotion/](N02-dc-promotion/) |
-| N03 | OU Hierarchy | Admins, IT, HR, Users structure for RBAC | [/T1-core-infrastructure/N03-ous/](N03-ous/) |
-| N04 | Users, Groups & Nesting | Automated users, groups, nested membership | [/T1-core-infrastructure/N04-users-groups/](N04-users-groups/) |
-| N05 | Protocol Basics | ICMP, TCP handshake, ARP, DHCP DORA | [/T1-core-infrastructure/N05-protocol-basics/](N05-protocol-basics/) |
+| 1.1 | DNS SRV Record Registration | DC advertises via `_ldap._tcp.homelab.local` SRV record | /T1-core-infrastructure/1.1-dns-srv-records/ |
+| 1.2 | Domain Controller Promotion | Windows Server becomes `homelab.local` forest root via LDAP bind | /T1-core-infrastructure/1.2-dc-promotion/ |
+| 1.3 | Organizational Unit Hierarchy | 4-department OU tree (Admins, IT, HR, Users) for RBAC | /T1-core-infrastructure/1.3-ou-hierarchy/ |
+| 1.4 | Users, Groups & Nested Membership | Automated 6 users, 4 groups; nested membership via LDAP modify | /T1-core-infrastructure/1.4-users-groups/ |
+| 1.5 | Flat Network & Protocol Basics | ICMP, TCP handshake, ARP, DHCP DORA on single subnet | /T1-core-infrastructure/1.5-protocol-basics/ |
 
 ### T2: Security & Policy
 
 | # | Project | What I Proved | Folder |
 |---|---------|---------------|--------|
-| N06 | EC2 Client Domain Join | Kerberos AS-REQ/AS-REP authentication | [/T2-security-policy/N06-domain-join/](06-domain-join/) |
-| N07 | OU Delegation | HR resets HR passwords (least privilege) | [/T2-security-policy/N07-delegation/](N07-delegation/) |
-| N08 | GPO Drive Mapping | S: drive mapped via Group Policy | [/T2-security-policy/N08-gpo-drive/](N08-gpo-drive/) |
-| N09 | Password & Lockout Policy | 8-char, complexity, 3-attempt lockout | [/T2-N09-password-policy/](N09-password-policy/) |
-| N10 | AD Recycle Bin | Deleted objects restored in <1 minute | [/T2-security-policy/N10-recycle-bin/](N10-recycle-bin/) |
+| 2.6 | EC2 Client Domain Join | Kerberos AS-REQ/AS-REP handshake + LDAP bind | /T2-security-policy/2.6-domain-join/ |
+| 2.7 | OU Delegation (Password Reset) | HR_Staff resets HR OU passwords (least privilege enforcement) | /T2-security-policy/2.7-ou-delegation/ |
+| 2.8 | Group Policy Drive Mapping | S: drive (\\DC\HRData) mapped via GPO + SMB Tree Connect | /T2-security-policy/2.8-gpo-drive-mapping/ |
+| 2.9 | Password & Lockout Policy | 8-char complexity, 3-attempt lockout with KRB_ERROR 0x12 | /T2-security-policy/2.9-password-lockout/ |
+| 2.10 | AD Recycle Bin (Object Recovery) | Deleted objects restored with `isDeleted` TRUE→FALSE | /T2-security-policy/2.10-recycle-bin/ |
 
 ### T3: Advanced Enterprise
 
 | # | Project | What I Proved | Folder |
 |---|---------|---------------|--------|
-| N11 | PKI & LDAPS | Enterprise CA, LDAPS (636), TLS decryption | [/T3:advanced-enterprise/N11-pki-ldaps/](N11-pki-ldaps/) |
-| N12 | Fine-Grained Password Policies (PSO) | Admin (14-char) vs Standard (8-char) rules | [/T3:advanced-enterprise/N12-fine-grained-password-policies/](N12-fine-grained-password-policies/) |
-| N13 | Multi-AZ Replication | Cross-AZ AD replication via RPC/drsuapi | [/T3:advanced-enterprise/N13-multi-az-replication/](N13-multi-az-replication/) |
-| N14 | AD FS Federation (SAML) | SAML 2.0 token issuance for SSO | [/T3:advanced-enterprise/N14-adfs-saml/](N14-adfs-saml/) |
-| N15 | Authoritative Restore (ntdsutil) | OU recovery with ntdsutil in DSRM | [/T3:advanced-enterprise/N15-authoritative-restore/](N15-authoritative-restore/) |
+| 3.11 | PKI & LDAPS (TLS Decryption) | Enterprise CA, LDAPS port 636, TLS 1.3 decryption with SSLKEYLOGFILE | /T3-advanced-enterprise/3.11-pki-ldaps/ |
+| 3.12 | Fine-Grained Password Policies (PSO) | Admin (14-char) vs HR (8-char) different rules via PSO priority | /T3-advanced-enterprise/3.12-fine-grained-password-policies/ |
+| 3.13 | Multi-AZ Replication (AD Sites) | Cross-AZ replication via `drsuapi.DRSGetNCChangesRequest/Response` | /T3-advanced-enterprise/3.13-multi-az-replication/ |
+| 3.14 | AD FS Federation (SAML) | SAMLResponse with NameID + AttributeStatement via HTTP POST | /T3-advanced-enterprise/3.14-adfs-saml/ |
+| 3.15 | Authoritative Restore (ntdsutil) | OU recovery from DSRM, RTO reduced 2hrs→30min | /T3-advanced-enterprise/3.15-authoritative-restore/ |
 
 ---
 
@@ -55,32 +54,39 @@ Each project combines **Active Directory** (self-hosted on AWS EC2), **Packet Tr
 
 | Path | Time | What You'll See |
 |------|------|-----------------|
-| **Quickest** (screenshots) | 30 sec | Annotated images |
-| **Medium** (Wireshark) | 2 min | Raw packet captures |
-| **Deep** (re-run scripts) | 25 min/project | Full reproduction |
+| **Quickest** (screenshots) | 30 sec | Annotated Packet Tracer diagrams + Wireshark packet screenshots |
+| **Medium** (Wireshark) | 2 min | Raw .pcapng files with display filters applied |
+| **Deep** (re-run scripts) | 25 min/project | Full reproduction via PowerShell scripts on AWS Free Tier |
+
+---
 
 ## Technologies Demonstrated
 
 | Category | Technologies |
 |----------|--------------|
-| **Cloud** | AWS EC2, VPC, Security Groups, Free Tier optimization |
-| **Active Directory** | DNS SRV, OUs, Groups, Kerberos, LDAP, LDAPS, GPOs, Delegation, Recycle Bin, PSOs, Sites & Services, AD FS, ntdsutil |
-| **PKI & Security** | Enterprise CA, Domain Controller certificates, TLS decryption, SAML 2.0 |
-| **Networking** | Cisco Packet Tracer, RPC, drsuapi |
-| **Protocol Analysis** | Wireshark, filters, TLS decryption, DRS replication |
-| **Automation** | PowerShell (all 15 projects scripted) |
+| **Cloud** | AWS EC2 t2.micro, VPC, Security Groups, Availability Zones, Free Tier optimization |
+| **Active Directory** | DNS SRV records, DC promotion, OUs, Groups, nested membership, Kerberos (AS-REQ/AS-REP), LDAP bind/modify, GPOs, Delegation (dsacls), Recycle Bin, PSOs, Sites & Services, AD FS, ntdsutil |
+| **PKI & Security** | Enterprise Root CA + Issuing CA, Domain Controller certificates, LDAPS (port 636), TLS 1.3 decryption, SAML 2.0 |
+| **Networking** | Cisco Packet Tracer, flat topology, ICMP, TCP 3-way handshake, ARP, DHCP DORA, RPC, drsuapi |
+| **Protocol Analysis** | Wireshark, display filters, TLS decryption (SSLKEYLOGFILE), LDAP packets, Kerberos error codes, SMB Tree Connect, DRS replication |
+| **Automation** | PowerShell (Install-ADDSForest, New-ADOrganizationalUnit, New-ADUser, New-ADGroup, Add-ADGroupMember, Enable-ADOptionalFeature, New-ADFineGrainedPasswordPolicy, dsacls) |
+
+---
 
 ## Cost Tracking
 
 | Resource | Limit | My Usage | Cost |
 |----------|-------|----------|------|
 | EC2 t2.micro | 750 hrs/month | ~60 hrs total (all 15 projects) | $0.00 |
-| EBS storage | 30 GB | 30 GB | $0.00 |
+| EBS storage (30 GB) | 30 GB | 30 GB (DC1 + DC2 + CA + ADFS) | $0.00 |
 | **TOTAL** | | | **$0.00** |
+
+*All projects completed within AWS Free Tier limits. No infrastructure costs incurred.*
+
+---
+
 
 ## Contact
 
 - **GitHub:** [yourusername] (this repo)
 - **LinkedIn:** [linkedin.com/in/yourname]
-
-
