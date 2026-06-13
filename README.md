@@ -83,6 +83,4 @@ Each project combines **Active Directory** (self-hosted on AWS EC2), **Packet Tr
 - **GitHub:** [yourusername] (this repo)
 - **LinkedIn:** [linkedin.com/in/yourname]
 
----
 
-*"I don't just claim skills. I capture the packets that prove them."*
