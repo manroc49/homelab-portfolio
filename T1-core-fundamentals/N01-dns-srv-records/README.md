@@ -1,48 +1,117 @@
 # Project 1.1: DNS SRV Record Registration
 
+**Tagline:** Proving automatic Domain Controller discovery works by verifying the `_ldap._tcp` SRV record exists and resolves correctly.
+
 ## What This Proves
 
 | Concept | Evidence |
 |---------|----------|
-| DC advertises LDAP service via DNS SRV | Wireshark capture showing DNS response with port 389 |
-| Clients can auto-discover DC without hardcoding | nslookup returns dc.homelab.local |
-| DNS role installs correctly with AD DS | Get-DnsServerResourceRecord returns SRV records |
+| DC advertises LDAP service via DNS SRV | DNS Manager showing `_ldap` SRV record in Forward Lookup Zones |
+| Clients can auto-discover DC without hardcoding | nslookup returns SRV record with port 389 and hostname |
+| DNS role installs correctly with AD DS | SRV record properties show Priority 0, Weight 100, Port 389 |
 
 ## Topology
 
 | Device | Role | IP Address | OS |
 |--------|------|------------|-----|
-| DC | Domain Controller + DNS Server | 10.0.1.10 (static) | Windows Server 2019 |
+| DC | Domain Controller + DNS Server | DHCP-assigned (172.31.x.x) | Windows Server 2025 |
 | Client | Not used in this project | N/A | N/A |
 
 ## IP Addressing Plan
 
 | Network | Subnet | Gateway |
 |---------|--------|---------|
-| homelab.local | 10.0.1.0/24 | 10.0.1.1 |
+| homelab.local | AWS VPC (172.31.0.0/16) | AWS Default Gateway |
 
 ## Configuration Files
 
 | File | Purpose |
 |------|---------|
-| deploy-dc.ps1 | Automates AD DS + DNS installation and promotion |
-| wireshark-filters.txt | Display filter: `dns.qry.type == 33` |
+| N01-dns-srv-topology.pkt | Packet Tracer topology design |
 
 ## Step-by-Step Configuration
 
-```powershell
-# Phase 1: Set static IP (inside EC2 RDP session)
-New-NetIPAddress -InterfaceAlias "Ethernet" -IPAddress 10.0.1.10 -PrefixLength 24 -DefaultGateway 10.0.1.1
-Set-DnsClientServerAddress -InterfaceAlias "Ethernet" -ServerAddresses 127.0.0.1
+    # Phase 1: Launch AWS EC2 instance with Windows Server 2025
+    # - DO NOT configure static IP - leave DHCP enabled
+    # - Security group rules: RDP, DNS (UDP), LDAP, Kerberos (TCP 88)
 
-# Phase 2: Install AD DS and DNS roles
-Install-WindowsFeature -Name AD-Domain-Services,DNS -IncludeManagementTools
+    # Phase 2: Install AD DS and DNS roles (GUI method)
+    # - Server Manager → Add Roles and Features
+    # - Select: Active Directory Domain Services, DNS Server
+    # - If "No static IP" warning appears, click Continue
 
-# Phase 3: Promote to Domain Controller
-Install-ADDSForest -DomainName "homelab.local" -InstallDNS -Force
+    # Phase 3: Promote to Domain Controller (GUI method)
+    # - Server Manager → yellow triangle → Promote to domain controller
+    # - Add a new forest: homelab.local
+    # - DSRM password: P@ssw0rd123!
+    # - Server restarts automatically
 
-# Phase 4: Verify SRV records
-Get-DnsServerResourceRecord -ZoneName "homelab.local" -RRType SRV | Where-Object {$_.RecordName -like "*_ldap*"}
+    # Phase 4: Reconnect as HOMELAB\Administrator
+    # - Password: original AWS Administrator password (not DSRM password)
 
-# Phase 5: Generate DNS query for Wireshark
-nslookup -type=SRV _ldap._tcp.homelab.local
+    # Phase 5: Verify SRV records exist (GUI method)
+    # - DNS Manager → Forward Lookup Zones → homelab.local → _msdcs → _tcp
+    # - Verify _ldap SRV record exists
+
+    # Phase 6: Verify SRV record properties
+    # - RIGHT-CLICK _ldap → Properties
+    # - Confirm: Port 389, Priority 0, Weight 100
+
+    # Phase 7: Verify DNS resolution (PowerShell)
+    nslookup -type=SRV _ldap._tcp.homelab.local. 127.0.0.1
+
+## Verification Commands
+
+| Command | Expected Result |
+|---------|----------------|
+| `nslookup -type=SRV _ldap._tcp.homelab.local. 127.0.0.1` | Returns SRV record with port 389 and hostname |
+| DNS Manager → _ldap Properties | Port: 389, Priority: 0, Weight: 100 |
+
+## Issues Encountered
+
+| Issue | Resolution |
+|-------|------------|
+| RDP connection lost after promoting to DC | Reconnect as `HOMELAB\Administrator` (not just `Administrator`). Wait 2-3 minutes for AD DS to fully initialize. |
+| "No static IP addresses were found" validation warning | Click **Continue** and proceed with installation. AWS manages IP addressing via DHCP. |
+| `nslookup` returns "Non-existent domain" | Use trailing dot: `_ldap._tcp.homelab.local.` to prevent Windows from appending AWS domain suffixes (`ec2.internal`). |
+| `ping dc.homelab.local` fails while nslookup works | Expected behavior. `nslookup` bypasses Windows DNS Client; `ping` uses it. Does not indicate DNS server failure. |
+| DNS queries show `ec2.internal` appended in Wireshark | Normal AWS behavior. Trailing dot in nslookup prevents it. SRV record still resolves correctly. |
+| Wireshark shows no DNS traffic when filtering `dns.qry.type == 33` | Windows DNS Client handles queries internally. Relied on DNS Manager and nslookup for verification instead. |
+
+## What I Would Do Differently
+
+- Skip the static IP configuration entirely from the beginning. AWS DHCP works fine for AD DS.
+- Use the trailing dot in nslookup queries from the start to avoid the `ec2.internal` suffix confusion.
+- Focus on DNS Manager and nslookup as primary evidence rather than spending excessive time troubleshooting Wireshark capture issues.
+
+## Files in Folder
+
+| File | Description |
+|------|-------------|
+| README.md | This file |
+| blog-post.md | Companion blog post |
+| N01-dns-srv-topology.pkt | Packet Tracer design file |
+| screenshots/ | Annotated evidence images |
+
+## Screenshots
+
+| # | Filename | What it shows |
+|---|----------|---------------|
+| 01 | packet-tracer-topology.png | Packet Tracer with DC-homelab and Client labeled |
+| 02 | aws-rdp-connected.png | Windows Server desktop inside RDP |
+| 04 | ad-dns-installed.png | Server Manager showing AD DS + DNS installed |
+| 05 | services-running.png | DNS Manager showing _ldap record in _msdcs → _tcp |
+| 06 | dns-srv-verify.png | SRV record Properties showing Port 389 |
+| 07 | nslookup-verify.png | PowerShell output showing SRV record resolves |
+
+## Estimated Time
+
+| Phase | Time |
+|-------|------|
+| AWS EC2 deployment | 10 min |
+| Packet Tracer topology | 5 min |
+| Install AD DS + DNS | 10 min |
+| Promote to DC | 10 min |
+| Verify SRV records | 5 min |
+| Screenshots & documentation | 10 min |
+| **Total** | **50 min** |
