@@ -87,11 +87,11 @@
 ## Screenshots
 
 - [packet-tracer-topology.png](screenshots/01-packet-tracer-topology.png)
-| 02 | aws-rdp-connected.png | Windows Server desktop inside RDP |
-| 03 | ad-dns-installed.png | Server Manager showing AD DS + DNS installed |
-| 04 | services-running.png | DNS Manager showing _ldap record in _msdcs → _tcp |
-| 05 | dns-srv-verify.png | SRV record Properties showing Port 389 |
-| 06 | nslookup-verify.png | PowerShell output showing SRV record resolves |
+- [aws-rdp-connected.png](screenshots/02-aws-rdp-connected.png)
+- [ad-dns-installed.png](screenshots/03-ad-dns-installed.png)
+- [services-running.png](screenshots/04-services-running.png)
+- [dns-srv-verify.png](screenshots/05-dns-srv-verify.png)
+- [nslookup-verify.png](screenshots/06-nslookup-verify.png)
 
 ## Estimated Time
 
