@@ -84,25 +84,14 @@
 - Use the trailing dot in nslookup queries from the start to avoid the `ec2.internal` suffix confusion.
 - Focus on DNS Manager and nslookup as primary evidence rather than spending excessive time troubleshooting Wireshark capture issues.
 
-## Files in Folder
-
-| File | Description |
-|------|-------------|
-| README.md | This file |
-| blog-post.md | Companion blog post |
-| N01-dns-srv-topology.pkt | Packet Tracer design file |
-| screenshots/ | Annotated evidence images |
-
 ## Screenshots
 
-| # | Filename | What it shows |
-|---|----------|---------------|
-| 01 | packet-tracer-topology.png | Packet Tracer with DC-homelab and Client labeled |
+- [packet-tracer-topology.png](screenshots/01-packet-tracer-topology.png)
 | 02 | aws-rdp-connected.png | Windows Server desktop inside RDP |
-| 04 | ad-dns-installed.png | Server Manager showing AD DS + DNS installed |
-| 05 | services-running.png | DNS Manager showing _ldap record in _msdcs → _tcp |
-| 06 | dns-srv-verify.png | SRV record Properties showing Port 389 |
-| 07 | nslookup-verify.png | PowerShell output showing SRV record resolves |
+| 03 | ad-dns-installed.png | Server Manager showing AD DS + DNS installed |
+| 04 | services-running.png | DNS Manager showing _ldap record in _msdcs → _tcp |
+| 05 | dns-srv-verify.png | SRV record Properties showing Port 389 |
+| 06 | nslookup-verify.png | PowerShell output showing SRV record resolves |
 
 ## Estimated Time
 
